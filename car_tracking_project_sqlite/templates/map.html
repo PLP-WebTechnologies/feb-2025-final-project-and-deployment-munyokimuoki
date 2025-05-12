@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Car Map</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>#map { height: 80vh; width: 100%; border-radius: 12px; }</style>
+</head>
+<body>
+    <div class="map-page">
+        <h2>Car Tracking Map</h2>
+        <div id="map"></div>
+    </div>
+    <script>
+    function initMap() {
+        const carLocation = {lat: {{ car_location.latitude }}, lng: {{ car_location.longitude }}};
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 12,
+            center: carLocation
+        });
+        new google.maps.Marker({ position: carLocation, map: map, title: "Car Location" });
+    }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
+</body>
+</html>
